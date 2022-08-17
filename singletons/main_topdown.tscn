@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/images/moon_ground.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/rover/rover.png" type="Texture" id=2]
+[ext_resource path="res://scripts/main/player.gd" type="Script" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 13.75, 9.75 )
+
+[node name="Main" type="Node"]
+
+[node name="MoonGround" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+offset = Vector2( 360, 360 )
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 284, 253 )
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
+position = Vector2( -11, 14 )
+scale = Vector2( 0.12, 0.12 )
+frames = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PoolVector2Array( 172, 373, 188, 364, 211, 345, 242, 333, 294, 330, 319, 340, 343, 357, 386, 381, 430, 414, 497, 438, 551, 437, 620, 423 )
