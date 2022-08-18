@@ -1,25 +1,25 @@
 extends RigidBody2D 
 
 var wheels = []
-var speed = 60
+var speed = 100
 var break_power = 100
-var max_speed = 20
+var max_speed = 100
 
 func _ready():
-    wheels = get_tree().get_nodes_in_group("wheel")
+	wheels = get_tree().get_nodes_in_group("wheel")
 
 func _physics_process(delta):    
-    if Input.is_action_pressed("action_right"):
-        for wheel in wheels:
-            if wheel.angular_velocity < max_speed:
-                wheel.apply_torque_impulse(speed * delta * 60)
-                
-    if Input.is_action_pressed("action_left"):
-        for wheel in wheels:
-            if wheel.angular_velocity > -max_speed:
-                wheel.apply_torque_impulse(-break_power * delta * 60)
-                
-            #turn += 1
+	if Input.is_action_pressed("action_right"):
+		for wheel in wheels:
+			if wheel.angular_velocity < max_speed:
+				wheel.apply_torque_impulse(speed * delta * 100)
+				
+	if Input.is_action_pressed("action_left"):
+		for wheel in wheels:
+			if wheel.angular_velocity > -max_speed:
+				wheel.apply_torque_impulse(-break_power * delta * 100)
+				
+			#turn += 1
 
 
 #extends RigidBody2D
