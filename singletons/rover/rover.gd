@@ -6,6 +6,7 @@ var break_power = 100
 var max_speed = 100
 
 func _ready():
+	get_node("UI/Label").text = "A and D to move. Don't 'jump' else you'll escape the Moon!"
 	wheels = get_tree().get_nodes_in_group("wheel")
 
 func _physics_process(delta):    
@@ -48,3 +49,7 @@ func _physics_process(delta):
 #
 #    if Input.is_action_pressed("action_backward"):
 #        _acceleration = transform.x * _braking
+
+
+func _on_Timer_timeout():
+	get_node("UI/Label").text = ""
