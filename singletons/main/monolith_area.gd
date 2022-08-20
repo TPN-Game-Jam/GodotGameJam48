@@ -21,4 +21,5 @@ func _on_MonolithArea_body_entered(body):
 	get_node("../Rover/UI/RichTextLabel").text = "Return to the lander"
 	get_node("../Rover/UI/RichTextLabel").counter = -200
 	get_node("../Lander").monolith_found = true
+	get_node("../Monolith/Sprite").visible = false
 	

@@ -1,6 +1,5 @@
 extends RichTextLabel
 
-
 export var counter = -200
 
 func _physics_process(delta):

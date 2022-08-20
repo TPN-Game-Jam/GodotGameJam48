@@ -4,6 +4,9 @@ var wheels = []
 var speed = 100
 var break_power = 100
 var max_speed = 100
+var last_position : Vector2 = Vector2()
+var save_position : Vector2 = Vector2()
+var position_reset = false
 
 func _ready():
 	get_node("UI/Label").text = "A and D to move. Don't 'jump' else you'll escape the Moon!"
@@ -19,37 +22,25 @@ func _physics_process(delta):
 		for wheel in wheels:
 			if wheel.angular_velocity > -max_speed:
 				wheel.apply_torque_impulse(-break_power * delta * 100)
-				
-			#turn += 1
 
 
-#extends RigidBody2D
-#
-#var _velocity = Vector2.ZERO
-#
-#var _acceleration = Vector2.ZERO
-#var _engine_power = 400  # Forward acceleration force.
-#var _braking = -450
-#
-#func _physics_process(delta):
-#    get_input()
-#    _velocity += _acceleration * delta
-#    _velocity = move_and_slide(_velocity)
-#
-#
-#func get_input():
-#    var turn = 0
-#    if Input.is_action_pressed("action_right"):
-#        turn += 1
-#    if Input.is_action_pressed("action_left"):
-#        turn -= 1
-#
-#    if Input.is_action_pressed("action_forward"):
-#        _acceleration = transform.x * _engine_power
-#
-#    if Input.is_action_pressed("action_backward"):
-#        _acceleration = transform.x * _braking
-
-
+func _integrate_forces(state):
+	if position_reset:
+		#print("position reset:", save_position.x, save_position.y)
+		position_reset = false
+		state.linear_velocity.normalized() * 0
+		for wheel in wheels:
+			wheel.linear_velocity = state.linear_velocity.normalized() * 0
+			
+	
 func _on_Timer_timeout():
 	get_node("UI/Label").text = ""
+	
+	save_position = last_position
+	if save_position == Vector2(0, 0):
+		#print("save position is vector2")
+		save_position = get_node(".").position
+	
+	last_position = get_node(".").position
+	#print("last_position: ", last_position.x, last_position.y)
+	
